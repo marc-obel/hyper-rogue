@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -26,6 +27,10 @@ var grid []Cell
 func main() {
 	initializeGrid()
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/left", handleLeft)
+	http.HandleFunc("/down", handleDown)
+	http.HandleFunc("/up", handleUp)
+	http.HandleFunc("/right", handleRight)
 
 	println("Starting server on :8080")
 	http.ListenAndServe(":8080", nil)
@@ -45,6 +50,30 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		http.Error(w, "Error rendering template", http.StatusInternalServerError)
+	}
+}
+
+func handleLeft(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		fmt.Fprintf(w, "<span class='cell'>move left</span>")
+	}
+}
+
+func handleDown(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		fmt.Fprintf(w, "<span class='cell'>move down</span>")
+	}
+}
+
+func handleUp(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		fmt.Fprintf(w, "<span class='cell'>move up</span>")
+	}
+}
+
+func handleRight(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		fmt.Fprintf(w, "<span class='cell'>move right</span>")
 	}
 }
 

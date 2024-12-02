@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://unpkg.com/missing.css@1.1.3" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
     <script
       src="https://unpkg.com/htmx.org@2.0.3"
       integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"
@@ -26,18 +29,60 @@
         grid-template-columns: repeat(15, 20px);
         grid-template-rows: repeat(15, 20px);
       }
+      .player {
+        color: #ea76cb;
+      }
+      .enemy {
+        color: #e64553;
+      }
+      .friend {
+        color: #40a02b;
+      }
     </style>
     <title>Hyper Rogue</title>
   </head>
   <body>
     <header>Hyper Rogue</header>
     <main>
-      <p class="grid center" role="grid">
+      <p class="grid center" id="grid" role="grid">
         {{range .Grid}}
         <span class="cell {{.Class}}" role="gridcell">{{.DisplayChar}}</span>
         {{end}}
       </p>
     </main>
-    <footer></footer>
+    <footer>
+      <button
+        class="iconbutton"
+        hx-trigger="click, keydown[key=='h'] from:body"
+        hx-post="/left"
+        hx-target="#grid"
+      >
+        ←
+      </button>
+      <button
+        class="iconbutton"
+        hx-trigger="click, keydown[key=='j'] from:body"
+        hx-post="/down"
+        hx-target="#grid"
+      >
+        ↓
+      </button>
+      <button
+        class="iconbutton"
+        hx-trigger="click, keydown[key=='k'] from:body"
+        hx-post="/up"
+        hx-target="#grid"
+      >
+        ↑
+      </button>
+      <button
+        class="iconbutton"
+        hx-trigger="click, keydown[key=='l'] from:body"
+        hx-post="/right"
+        hx-target="#grid"
+      >
+        →
+      </button>
+    </footer>
   </body>
 </html>
